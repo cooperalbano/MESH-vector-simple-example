@@ -1,10 +1,9 @@
 #!/bin/bash
-# Geospatial Data Processing Workflow
+# GIS Data Processing Workflow
+# Copyright (C) 2022, University of Saskatchewan
 # Copyright (C) 2021, Wouter Knoben
-# Copyright (C) 2022-2023, University of Saskatchewan
-# Copyright (C) 2023, University of Calgary
 #
-# This file is part of Geospatial Data Processing Workflow
+# This file is part of GIS Data Processing Workflow
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -41,12 +40,12 @@
 # Usage Functions
 # ===============
 short_usage() {
-  echo "usage: $(basename $0) -cio DIR -v var1[,var2[...]] [-r INT] [-se DATE] [-ln REAL,REAL] [-f PATH] [-t BOOL] [-a stat1[,stat2,[...]] [-u BOOL] [-q q1[,q2[...]]]] [-p STR] "
+  echo "usage: $(basename $0) -cio DIR -v var1[,var2[...]] [-r INT] [-se DATE] [-ln REAL,REAL] [-f PATH] [-t BOOL] [-a stat1[,stat2,[...]] [-q q1[,q2[...]]]] [-p STR] "
 }
 
 
 # argument parsing using getopt - WORKS ONLY ON LINUX BY DEFAULT
-parsedArguments=$(getopt -a -n soil-grids-v1 -o i:o:v:r:s:e:l:n:f:t:a:u:q:p:c: --long dataset-dir:,output-dir:,variable:,crs:,start-date:,end-date:,lat-lims:,lon-lims:,shape-file:,print-geotiff:,stat:,include-na:,quantile:,prefix:,cache: -- "$@")
+parsedArguments=$(getopt -a -n soil-class -o i:o:v:r:s:e:l:n:f:t:a:u:q:p:c: --long dataset-dir:,output-dir:,variable:,crs:,start-date:,end-date:,lat-lims:,lon-lims:,shape-file:,print-geotiff:,stat:,include-na:,quantile:,prefix:,cache: -- "$@")
 validArguments=$?
 if [ "$validArguments" != "0" ]; then
   short_usage;
@@ -98,7 +97,7 @@ fi
 
 # check the prefix if not set
 if [[ -z $prefix ]]; then
-  prefix="soil_grids_v1_"
+  prefix="depth_to_bedrock_"
 fi
 
 # parse comma-delimited variables
@@ -208,11 +207,12 @@ subset_geotiff () {
 # Data Processing
 # ===============
 # display info
-echo "$(logDate)$(basename $0): processing Soil-Grids-v1 GeoTIFF(s)..."
+echo "$(logDate)$(basename $0): processing Wouter's wonderful soil_class GeoTIFF(s)..."
 
 # make the output directory
 echo "$(logDate)$(basename $0): creating output directory under $outputDir"
 mkdir -p "$outputDir" # making the output directory
+mkdir -p "$cache" # making the cache directory
 
 # if shapefile is provided extract the extents from it
 if [[ -n $shapefile ]]; then
@@ -258,7 +258,7 @@ if [[ -n "$shapefile" ]] && [[ -n $stats ]]; then
   tempInstallPath="$cache/r-packages"
   mkdir -p "$tempInstallPath"
   export R_LIBS_USER="$tempInstallPath"
-  
+
   # extract given stats for each variable
   for var in "${variables[@]}"; do
     ## build renv and create stats
@@ -273,7 +273,6 @@ if [[ -n "$shapefile" ]] && [[ -n $stats ]]; then
 	    "$shapefile" \
 	    "$outputDir/${prefix}stats_${var}.csv" \
 	    "$stats" \
-	    "$includeNA" \ 
 	    "$quantiles" >> "${outputDir}/${prefix}stats_${var}.log" 2>&1;
   done
 fi

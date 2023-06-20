@@ -1,0 +1,18 @@
+[1] "/home/calbano/scratch/.temp_data_jobid-7268726/r-packages"
+* The library is already synchronized with the lockfile.
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+[1] "Transforming EPSG to 4326"
+[1] "NOT including NA values"
+  |                                                                              |                                                                      |   0%  |                                                                              |==========                                                            |  14%  |                                                                              |====================                                                  |  29%  |                                                                              |==============================                                        |  43%  |                                                                              |========================================                              |  57%  |                                                                              |==================================================                    |  71%  |                                                                              |============================================================          |  86%  |                                                                              |======================================================================| 100%
+Warning message:
+In .local(x, y, ...) : Polygons transformed to raster CRS (EPSG:NA)

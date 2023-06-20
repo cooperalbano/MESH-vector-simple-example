@@ -34,11 +34,13 @@
 # implement subsetting and zonal statistics
 ./extract-gis.sh --dataset="landsat" \
   --dataset-dir="/project/rpp-kshook/Model_Output/Landsat/" \
-  --variable="NA_NALCMS_2010_v2_land_cover_30m" \
-  --shape-file="$(pwd)/../../../shape_file/catchment/BowAtBanff_cat.shp" \
+  --variable="land-cover" \
+  --shape-file="/home/calbano/scratch/MESH-vector-simple-example/Model_Workflow/shapefiles/catchment/BowAtLouise_cat.shp" \
   --print-geotiff=true \
-  --output-dir="$(pwd)/../../workflow_data/domain_BowAtBanff/zonalhist/" \
-  --prefix="landsat_BowAtBanff_" \
+  --output-dir="/home/calbano/scratch/MESH-vector-simple-example/Model_Workflow/vector_based_workflow/workflow_data/domain_BowAtLouise/zonalhist/" \
+  --prefix="landsat_BowAtLouise_" \
+  --start-date=2010 \
+  --end-date=2015 \
   --stat="majority,minority,frac" \
-  --email=your.email@something.ca \
+  --email=cooper.albano@usask.ca \
   -j;
