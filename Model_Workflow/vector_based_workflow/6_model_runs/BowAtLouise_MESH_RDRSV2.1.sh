@@ -16,6 +16,7 @@
 # foring, config and run dirs
 dir_mesh=../../installs/MESH/r1813
 
-ln -sf ../workflow_data/domain_BowAtBanff/drainagedatabase/BowAtBanff_MESH_drainage_database.nc ./MESH_drainage_database.nc
+ln -sf ../workflow_data/domain_BowAtLouise/drainagedatabase/BowAtLouise_MESH_drainage_database.nc ./MESH_drainage_database.nc
+ln -sf ../../forcing/MESH_uRDRS_BowAtLouise_remapped_1980-01-01-13-00-00.nc ./MESH_RDRS_BowAtLouise_remapped_1980-01-01-13-00-00.nc
 
 $dir_mesh/sa_mesh     

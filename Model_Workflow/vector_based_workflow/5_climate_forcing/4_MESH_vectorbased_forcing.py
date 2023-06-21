@@ -85,7 +85,7 @@ else:
     forcing_dir = forcing_dir # make sure a user-specified path is a Path()
 
 forcing_dataset = read_from_control(controlFolder/controlFile,'forcing_dataset')
-forcing_name = '{}_{}_remapped_{}.nc'.format(dataset,domain_name,startTime)
+forcing_name = 'u{}_{}_remapped_{}.nc'.format(dataset,domain_name,startTime)
 ddb_folder   = read_from_control(controlFolder/controlFile,'DDB_output_dir')
 if ddb_folder == 'default':
     ddb_folder = make_default_path('vector_based_workflow/workflow_data/domain_{}/drainagedatabase'.format(domain_name)) # outputs a Path()

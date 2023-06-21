@@ -6,7 +6,7 @@
 #SBATCH --time=01:00:00
 #SBATCH --job-name=RDRS_forcing_merge
 #SBATCH --error=errors_RDRS_forcing_merge
-#SBATCH --mail-user=example.email@usask.ca
+#SBATCH --mail-user=cooper.albano@usask.ca
 #SBATCH --mail-type=BEGIN
 #SBATCH --mail-type=END
 
@@ -14,7 +14,7 @@
 module load cdo/1.9.8
 
 # cd to datatool.sh output directory
-cd ../../forcing/
+cd ../../forcing/1980
 
 # merge into monthly files
 #for i in 01 02 03 04 05 06 07 08 09 10 11 12
@@ -23,4 +23,4 @@ cd ../../forcing/
 #done
 
 # merge into yearly files
-cdo -z zip -b F32 mergetime 1980*.nc rdrsv2.1_1980-01-0107.nc
+cdo -z zip -b F32 mergetime rdrs*.nc rdrsv2.1_1980-0112.nc

@@ -15,7 +15,7 @@ module load cdo/1.9.8
 
 # input folder
 infolder=../../forcing # /subbasin_select  
-fl=RDRS_BowAtBanff_remapped_1980-01-01-13-00-00.nc
+fl=RDRS_BowAtLouise_remapped_1980-01-01-13-00-00.nc
 echo $fl
 
 for var in RDRS_v2.1_P_HU_09944 RDRS_v2.1_A_PR0_SFC RDRS_v2.1_P_P0_SFC RDRS_v2.1_P_FB_SFC RDRS_v2.1_P_FI_SFC RDRS_v2.1_P_TT_09944 RDRS_v2.1_P_UVC_09944 latitude longitude 
@@ -52,9 +52,6 @@ for var in RDRS_v2.1_P_HU_09944 RDRS_v2.1_A_PR0_SFC RDRS_v2.1_P_P0_SFC RDRS_v2.1
 	do
 		rm $infolder/$var'_'$fl		
 	done 
-
-rm 	$infolder/$fl
-mv $infolder/u$fl $infolder/$fl
 
 # --- Code Provenance
 # Copy this script into the input folder/_workflow_log/
