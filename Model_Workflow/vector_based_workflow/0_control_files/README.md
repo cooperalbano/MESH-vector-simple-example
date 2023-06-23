@@ -7,7 +7,8 @@ Summaworkflow_public and edited by MESH workflow to be compatible for MESH appli
 https://github.com/CH-Earth/CWARHM/tree/main/5_model_input/mizuRoute/1d_control_file
 
 ## Example
-Example files from BowAtBanff subbasin have been provided. The necessary shapefiles (river_basins and river_network) are given as an example.
+Example files from BowAtLouise subbasin have been provided. The necessary shapefiles (river_basins and river_network) are given as an example.
+
 
 ## Additional Documentation
 Please visit the Standalone MESH Wiki for more detailed descriptions of each setting.

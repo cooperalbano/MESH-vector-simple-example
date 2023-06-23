@@ -1,0 +1,83 @@
+! ****************************************************************************************************************************
+! ****************************************************************************************************************************
+! ***** DEFINITION OF MODEL CONTROL INFORMATION ******************************************************************************
+! ****************************************************************************************************************************
+! ****************************************************************************************************************************
+! Note: lines starting with "!" are treated as comment lines -- there is no limit on the number of comment lines.
+!       lines starting with <xxx> are read till "!"
+!       Do not inclue empty line without !
+!  
+!       Followings are example of control options.  if valid variables are inserted, they are default values.
+!  
+! ****************************************************************************************************************************
+! DEFINE DIRECTORIES 
+! --------------------------
+<ancil_dir>            /home/calbano/scratch/MESH-vector-simple-example/Model_Workflow/vector_based_workflow/workflow_data/domain_BowAtLouise/topology/                   ! directory containing ancillary data (runoff mapping data, river network data)
+<input_dir>            /home/calbano/scratch/MESH-vector-simple-example/Model_Workflow/vector_based_workflow/6_model_runs/results/                   ! directory containing input data (runoff data)
+<output_dir>           /home/calbano/scratch/MESH-vector-simple-example/Model_Workflow/vector_based_workflow/6_model_runs/results/                  ! directory containing output data
+! ****************************************************************************************************************************
+! DEFINE SIMULATION CONTROLS 
+! --------------------------------------------
+<case_name>             CASE_NAME                  ! name of simulation 
+<sim_start>             1980-09-01 00:00:00        ! time of simulation start (00:00:00 if hh:mm:ss is not included) 
+<sim_end>               1981-01-01 00:00:00        ! time of simulation end (00:00:00 if hh:mm:ss is not included) 
+<route_opt>             0                          ! river routing options: 0-> accumRunoff, 1->IRF, 2->KWT, 3-> KW, 4->MC, 5->DW 
+<doesBasinRoute>        0                          ! basin routing options: 0-> no, 1->IRF, otherwise error
+<newFileFrequency>      single                     ! frequency for new output options (case-insensitive): daily, monthly, yearly, or single
+! ****************************************************************************************************************************
+! DEFINE RIVER NETWORK DATA 
+! ---------------------------------------
+<fname_ntopOld>         network_topology_BowAtLouise.nc                   ! netCDF name for River Network
+<dname_sseg>            n                ! dimension name of the stream segments
+<dname_nhru>            n                ! dimension name of the HRUs
+! ****************************************************************************************************************************
+! DEFINE DESIRED VARIABLES FOR THE NETWORK TOPOLOGY
+! ---------------------------------------------------------
+<seg_outlet>            -9999                      ! seg_id of outlet streamflow segment. -9999 for all segments 
+! ****************************************************************************************************************************
+! DEFINE RUNOFF DATA 
+! ----------------------------------
+<fname_qsim>            BowAtLouise_distributed_default_timestep.nc                  ! name of file containing the HRU runoff
+<vname_qsim>            RUNOFF             ! name of HRU runoff variable
+<vname_time>            time               ! name of time variable 
+<vname_hruid>           hru             ! name of runoff HRU id variable (if 1D runoff vector is input)
+<dname_time>            time               ! name of time dimension 
+<dname_hruid>           hru             ! name of the HRU dimension (if 1D runoff vector is input) 
+<units_qsim>            mm/s            ! units of runoff depth. Accepted units:  mm/s, mm/hr, mm/day, m/s, m/hr, m/day
+<dt_qsim>               86400                        ! time interval of the runoff [sec] e.g., 86400 sec for daily step
+! ****************************************************************************************************************************
+! NAMELIST 
+! ---------------------------
+<param_nml>             param.nml.default              ! Namelist name containing routing parameter values 
+! ****************************************************************************************************************************
+! Dictionary to map variable names
+! ---------------------------
+<varname_area>          basin_area                 ! name of variable holding hru area
+<varname_length>        length                     ! name of variable holding segment length
+<varname_slope>         slope                      ! name of variable holding segment slope
+<varname_HRUid>         hruid                      ! name of variable holding HRU id
+<varname_hruSegId>      seg_hr_id                 ! name of variable holding the stream segment below each HRU  
+<varname_segId>         seg_id                     ! name of variable holding the ID of each stream segment  
+<varname_downSegId>     tosegment                  ! name of variable holding the ID of the next downstream segment
+! ****************************************************************************************************************************
+! ****************************************************************************************************************************
+! ****************************************************************************************************************************
+!
+! Some of useful input options
+! See read_control.f90 for complete options
+!
+! ****************************************************************************************************************************
+! debugging  
+! ---------------------------
+<debug>                 F                          ! print out detailed information throught the probram
+<desireId>              -9999                      ! turn off checks (-999) or speficy reach ID if necessary to print on screen
+! ****************************************************************************************************************************
+! output options
+! ---------------------------
+<netcdf_format>         netcdf4                    ! netcdf format for output 'classic','64bit_offset','netcdf4'
+<basRunoff>             T                          ! output options
+<instRunoff>            T                          ! output options
+<dlayRunoff>            T                          ! output options
+<sumUpstreamRunoff>     T                          ! output options
+<KWTroutedRunoff>       T                          ! output options
+<IRFroutedRunoff>       T                          ! output options 

@@ -10,13 +10,14 @@
 #SBATCH --mail-type=BEGIN
 #SBATCH --mail-type=END
 
-mizufolder=/path/to/MESH-Scripts/Model_Workflow/installs/MizuRoute/mizuRoute-main/route
+mizufolder=/home/calbano/scratch/MESH-vector-simple-example/Model_Workflow/installs/MizuRoute/mizuRoute-main/route
+
 
 # copy data into topology folder
-cp $mizufolder/ancillary_data/param.nml.default ../workflow_data/domain_BowAtBanff/topology
+cp $mizufolder/ancillary_data/param.nml.default ../workflow_data/domain_BowAtLouise/topology
 
 # run mizuroute
-$mizufolder/bin/mizuroute $mizufolder/settings/BowAtBanff.control
+$mizufolder/bin/MizuRoute $mizufolder/settings/BowAtLouise.control
 
 # --- Code Provenance
 # Copy this script into the input folder/_workflow_log/

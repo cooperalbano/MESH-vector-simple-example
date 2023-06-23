@@ -25,15 +25,68 @@ import xarray as xs
 import pandas as pd
 import time 
 from datetime import datetime
+from pathlib import Path
 
+#Control file handling
+# Easy access to control file folder
+controlFolder = Path('../0_control_files')
+
+# Store the name of the 'active' file in a variable
+controlFile = 'control_active.txt'
+
+#Function to extract a given setting from the control file
+def read_from_control( file, setting ):
+     
+    # Open 'control_active.txt' and ...
+    with open(file) as contents:
+        for line in contents:
+             
+            # ... find the line with the requested setting
+            if setting in line and not line.startswith('#'):
+                break
+     
+    # Extract the setting's value
+    substring = line.split('|',1)[1]      # Remove the setting's name (split into 2 based on '|', keep only 2nd part)
+    substring = substring.split('#',1)[0] # Remove comments, does nothing if no '#' is found
+    substring = substring.strip()         # Remove leading and trailing whitespace, tabs, newlines
+        
+    # Return this value   
+    return substring
+
+#Function to specify a default path
+def make_default_path(suffix):
+     
+    # Get the root path
+    rootPath = Path( read_from_control(controlFolder/controlFile,'root_path') )
+     
+    # Get the domain folder
+    #domainName = read_from_control(controlFolder/controlFile,'domain_name')
+    #domainFolder = 'domain_' + domainName
+     
+    # Specify the forcing path
+    defaultPath = rootPath / suffix
+     
+    return defaultPath
+
+# Get the domain folder
+domain_name = read_from_control(controlFolder/controlFile,'domain_name')
+domainFolder = 'domain_' + domain_name
+
+# Get the simulation dates
+start_sim = read_from_control(controlFolder/controlFile, 'simulation_start')
+end_sim = read_from_control(controlFolder/controlFile, 'simulation_end')
+
+# Get RFF input
+mizupath = read_from_control(controlFolder/controlFile,'mizu_RFF_input')
+if mizupath == 'default':
+    mizupath = make_default_path('vector_based_workflow/6_model_runs/')
+else:
+    mizupath = mizupath
+print(mizupath)
 # %% input files 
 start_time = time.time()
-input_topology     = '../workflow_data/domain_BowAtBanff/topology/network_topology_BowAtBanff.nc'
-domain_name        = 'BowAtBanff' 
-outdir             = '../workflow_data/domain_BowAtBanff/drainagedatabase/'
-start_sim          = '1/1/1980'
-end_sim            = '12/31/1980'
-input_rff          = '../6_model_runs/'
+input_topology     = f'../workflow_data/{domainFolder}/topology/network_topology_{domain_name}.nc' 
+outdir             = f'../workflow_data/{domainFolder}/drainagedatabase/'
 
 # %% Reading both network topology and drainage database
 network_topo = xs.open_dataset(input_topology)
@@ -57,7 +110,7 @@ for i in range(n):
 ind = np.int32(ind)  
 
 # %% reading daily MESH runoff 
-rff  = xs.open_dataset(input_rff+'results/RFF_D_GRD.nc')
+rff  = xs.open_dataset(str(mizupath)+'/results/RFF_D_GRD.nc')
 rff.close()
 
 rff_reorder = rff['RFF'].values[:,ind,0]
@@ -93,6 +146,6 @@ rff_ds.attrs['featureType'] = 'timeSeries'
 # save the output 
 comp = dict(zlib=True, complevel=6)
 encoding = {var: comp for var in rff_ds}
-rff_ds.to_netcdf(input_rff+'results/'+domain_name+'_distributed_default_timestep.nc', encoding=encoding)
+rff_ds.to_netcdf(str(mizupath)+'/results/'+domain_name+'_distributed_default_timestep.nc', encoding=encoding)
 print('--%s seconds--' %(time.time() - start_time))
 
