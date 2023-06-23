@@ -4,7 +4,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --mem=10G
 #SBATCH --time=03:00:00
-#SBATCH --job-name=remap
+#SBATCH --job-name=reorder
 #SBATCH --error=errors_BowAtLouise
 #SBATCH --mail-user=some.example@something.ca
 #SBATCH --mail-type=BEGIN
@@ -18,6 +18,6 @@ virtualenv --no-download $HOME/MESH-env
 source $HOME/MESH-env/bin/activate
 
 pip install easymore
+pip install xarray
 
-python3 2_easymore_remapping.py
-
+python3 4_MESH_vectorbased_forcing.py

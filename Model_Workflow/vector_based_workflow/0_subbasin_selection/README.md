@@ -1,6 +1,5 @@
-# EASYMORE Subbasin Selection
-EASYMORE: EArth SYstem MOdeling REmapper is a collection of functions that allows extraction of the data from a NetCDF file for a given shapefile such as a basin, catchment, points or lines. It can map gridded data or model output to any given shapefile and provide area average for a target variable.
-https://github.com/ShervanGharari/EASYMORE
+## Subbasin Selection
+Subbasin selection using EASYMORE is depreciated. This script has been modified to select all upstream segments and subbasins from a designated outlet segment.
 
 ## Programmers
 Ala Bahrami

@@ -35,9 +35,9 @@
 ./extract-gis.sh --dataset="landsat" \
   --dataset-dir="/project/rpp-kshook/Model_Output/Landsat/" \
   --variable="land-cover" \
-  --shape-file="/home/calbano/scratch/MESH-vector-simple-example/Model_Workflow/shapefiles/catchment/BowAtLouise_cat.shp" \
+  --shape-file="/enter/path/to/MESH-vector-simple-example/Model_Workflow/shapefiles/catchment/BowAtLouise_cat.shp" \
   --print-geotiff=true \
-  --output-dir="/home/calbano/scratch/MESH-vector-simple-example/Model_Workflow/vector_based_workflow/workflow_data/domain_BowAtLouise/zonalhist/" \
+  --output-dir="/enter/path/to/MESH-vector-simple-example/Model_Workflow/vector_based_workflow/workflow_data/domain_BowAtLouise/zonalhist/" \
   --prefix="landsat_BowAtLouise_" \
   --start-date=2010 \
   --end-date=2015 \
